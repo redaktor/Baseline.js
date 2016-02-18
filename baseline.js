@@ -271,7 +271,7 @@
       // some browsers are not pixel perfect now - if
       // there is "absolute" ::before or ::after, so :
       */
-      setTimeout(baseline,100);
+      setTimeout(baseline,200);
     });
     return baseline;
 
