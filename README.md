@@ -1,5 +1,7 @@
 # Baseline.js
 
+seeAlso [Changes in this fork ...](#CHANGES)
+
 Baseline.js is a simple jQuery / Zepto plugin for restoring baselines thrown off by odd image sizes.
 
 Simply call the plugin like so, passing the height of your baseline as a variable. It even works on responsive designs!
@@ -60,6 +62,42 @@ baseline('.content img', {0:24, 700:30}); // Apply a 24px baseline for all width
 The first parameter accepts either a selector string or one or more elements, e.g. selected through `document.getElementById()`.
 
 The vanilla JS version was initially created by the rocking [Ben Howdle](https://twitter.com/benhowdle).
+
+---
+<a name='CHANGES'/>
+## Changes in this fork
+
+- Makes use of `.getBoundingClientRect`'s `height` if possible. <br>(It returns a float which is better for device pixels)
+
+- You can now specify your baseline-rules directly in CSS, for example:
+
+```css
+.baselined,
+.baselined[data-baseline="1.8rem"],
+.ui.list[data-baseline="1.8rem"] {
+  position: relative;
+  top: -.25em;
+};
+```
+
+and just include the script (no IE < 9 yet).
+
+• This rule declares the .js enhancement
+```css
+.baselined[data-baseline="1.8rem"] {};
+```
+.js will now add the data-baseline attribute as unitless pixels, e.g. <br>[data-baseline="27"] for a 15px font...<br>
+So:
+
+• This rule will work always ...
+```css
+.baselined {}
+```
+
+• This rule will work only if JS did its work ...
+```css
+.baselined[data-baseline] {}
+```
 
 ## License
 
