@@ -41,9 +41,6 @@
           return value * getEmSize(element);
         case "rem":
           return value * getEmSize();
-        // Viewport units!
-        // According to http://quirksmode.org/mobile/tableViewport.html
-        // documentElement.clientWidth/Height gets us the most reliable info
         case "vw":
           return value * document.documentElement.clientWidth / 100;
         case "vh":
@@ -265,14 +262,14 @@
     };
 
     // parse CSS ...
-    document.addEventListener("DOMContentLoaded", function(event) {
-      baseline();
-      /*
-      // some browsers are not pixel perfect now - if
-      // there is "absolute" ::before or ::after, so :
-      */
-      setTimeout(baseline,200);
-    });
+    // To support elder browsers (IE8) ...
+    var stateCheck = setInterval(function() {
+      if (document.readyState === 'complete') {
+        clearInterval(stateCheck);
+        baseline();
+      }
+    }, 100);
+
     return baseline;
 
   }());
