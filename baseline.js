@@ -123,7 +123,7 @@
 
     function _setBase (element) {
       var rect = element.getBoundingClientRect();
-      var height = (rect.hasOwnProperty('height')) ? rect.height : element.offsetHeight,
+      var height = ((rect.hasOwnProperty('height')) ? rect.height : element.offsetHeight),
           current, old;
 
       if( _dynamicBase ) {
@@ -267,6 +267,9 @@
       if (document.readyState === 'complete') {
         clearInterval(stateCheck);
         baseline();
+        /* NOTE : some browsers are not pixel perfect now, e.g.
+        // if there is absolute ::before or ::after ... CSS, so:
+        */ setTimeout(baseline,200);
       }
     }, 100);
 
